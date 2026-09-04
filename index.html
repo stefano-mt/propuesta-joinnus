@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <title>FutureLab · Documento confidencial</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #07161c;
+      --ink-soft: #0d222a;
+      --paper: #f1f6f4;
+      --muted: #9bb0b5;
+      --line: rgba(201, 225, 221, .18);
+      --rose: #e91654;
+      --rose-light: #ff4d7f;
+      --danger: #ff8b91;
+      --focus: #a8e6cf;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+        var(--ink);
+      background-size: 48px 48px;
+      color: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      width: min(72vw, 880px);
+      aspect-ratio: 2 / 1;
+      border: 1px solid rgba(233, 22, 84, .24);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: rotate(-28deg);
+    }
+
+    body::before { top: -28vw; right: -18vw; }
+    body::after { bottom: -31vw; left: -23vw; border-color: rgba(168, 230, 207, .13); }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: clamp(24px, 4vw, 56px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand img {
+      display: block;
+      width: clamp(150px, 18vw, 230px);
+      height: 44px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .classification {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    main {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      padding: 44px 0;
+    }
+
+    .access-panel {
+      position: relative;
+      width: min(100%, 520px);
+      padding: clamp(30px, 6vw, 58px);
+      border: 1px solid var(--line);
+      background: rgba(8, 28, 35, .88);
+      box-shadow: 0 36px 100px rgba(0, 0, 0, .32);
+      backdrop-filter: blur(14px);
+    }
+
+    .access-panel::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 88px;
+      height: 3px;
+      background: var(--rose);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border: 2px solid var(--rose-light);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(233, 22, 84, .1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 760;
+      letter-spacing: -.055em;
+      line-height: .91;
+    }
+
+    h1 em {
+      color: var(--rose-light);
+      font-style: normal;
+      font-weight: 420;
+    }
+
+    .intro {
+      max-width: 410px;
+      margin: 28px 0 32px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    form { display: grid; gap: 14px; }
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .password-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      border: 1px solid rgba(201, 225, 221, .28);
+      background: rgba(255, 255, 255, .035);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .password-row:focus-within {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(168, 230, 207, .12);
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      padding: 17px 18px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--paper);
+      font: inherit;
+      letter-spacing: .08em;
+    }
+
+    input::placeholder { color: #70868c; letter-spacing: normal; }
+
+    button {
+      display: inline-flex;
+      min-width: 126px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin: 6px;
+      padding: 0 18px;
+      border: 0;
+      background: var(--rose);
+      color: white;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 750;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    button:hover:not(:disabled) { background: var(--rose-light); transform: translateY(-1px); }
+    button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    button:disabled { cursor: wait; opacity: .72; }
+
+    .arrow { font-size: 17px; line-height: 1; }
+
+    .spinner {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    button[aria-busy="true"] .spinner { display: block; }
+    button[aria-busy="true"] .arrow { display: none; }
+
+    .message {
+      min-height: 22px;
+      margin: 2px 0 0;
+      color: var(--danger);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .privacy {
+      margin: 0;
+      color: #779096;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .privacy strong { color: #adc0c3; font-weight: 650; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      .page { padding: 22px 18px; }
+      .classification { display: none; }
+      main { place-items: center stretch; padding: 32px 0; }
+      .access-panel { padding: 30px 22px 26px; }
+      h1 { font-size: clamp(40px, 15vw, 58px); }
+      .password-row { grid-template-columns: 1fr; }
+      button { min-height: 48px; margin: 0 6px 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      .spinner { animation-duration: 1.4s; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="brand">
+      <img src="logo-futurelab-blanco.png" alt="FutureLab">
+      <span class="classification">Acceso restringido</span>
+    </header>
+
+    <main id="main-content">
+      <section class="access-panel" aria-labelledby="access-title">
+        <p class="eyebrow">Acceso protegido</p>
+        <h1 id="access-title">Documento<br><em>confidencial</em></h1>
+        <p class="intro">Introduce la contraseña asignada para abrir esta propuesta.</p>
+
+        <form id="access-form" novalidate>
+          <label for="password">Contraseña</label>
+          <div class="password-row">
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Escribe tu contraseña" required autofocus>
+            <button id="access-button" type="submit" aria-busy="false">
+              <span class="button-label">Acceder</span>
+              <span class="arrow" aria-hidden="true">→</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <p id="message" class="message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <p class="privacy"><strong>Privacidad local.</strong> La contraseña y el contenido descifrado no se envían a ningún servidor.</p>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const PAYLOAD_URL = "proposal.enc";
+      const FORMAT_AAD = new TextEncoder().encode("futurelab-proposal:v1");
+      const form = document.getElementById("access-form");
+      const input = document.getElementById("password");
+      const button = document.getElementById("access-button");
+      const buttonLabel = button.querySelector(".button-label");
+      const message = document.getElementById("message");
+
+      function fromBase64(value) {
+        if (typeof value !== "string" || value.length === 0) throw new Error("Invalid payload");
+        const binary = atob(value);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+        return bytes;
+      }
+
+      function validatePayload(payload) {
+        const valid = payload &&
+          payload.version === 1 &&
+          payload.kdf?.name === "PBKDF2" &&
+          payload.kdf?.hash === "SHA-256" &&
+          Number.isInteger(payload.kdf?.iterations) &&
+          payload.kdf.iterations >= 100000 &&
+          payload.kdf.iterations <= 2000000 &&
+          payload.cipher?.name === "AES-GCM" &&
+          payload.cipher?.keyLength === 256 &&
+          payload.cipher?.tagLength === 128;
+        if (!valid) throw new Error("Invalid payload");
+      }
+
+      async function decryptProposal(passwordBytes) {
+        const response = await fetch(PAYLOAD_URL, { cache: "no-store", credentials: "same-origin" });
+        if (!response.ok) throw new Error("Unavailable payload");
+        const payload = await response.json();
+        validatePayload(payload);
+
+        const salt = fromBase64(payload.kdf.salt);
+        const iv = fromBase64(payload.cipher.iv);
+        const ciphertext = fromBase64(payload.ciphertext);
+        if (salt.length !== 32 || iv.length !== 12 || ciphertext.length < 17) throw new Error("Invalid payload");
+
+        const passwordKey = await crypto.subtle.importKey("raw", passwordBytes, "PBKDF2", false, ["deriveKey"]);
+        passwordBytes.fill(0);
+        const key = await crypto.subtle.deriveKey(
+          { name: "PBKDF2", hash: "SHA-256", salt, iterations: payload.kdf.iterations },
+          passwordKey,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["decrypt"]
+        );
+
+        const clearBuffer = await crypto.subtle.decrypt(
+          { name: "AES-GCM", iv, additionalData: FORMAT_AAD, tagLength: 128 },
+          key,
+          ciphertext
+        );
+        const clearBytes = new Uint8Array(clearBuffer);
+        const html = new TextDecoder("utf-8", { fatal: true }).decode(clearBytes);
+        clearBytes.fill(0);
+        return html;
+      }
+
+      function setBusy(busy) {
+        input.disabled = busy;
+        button.disabled = busy;
+        button.setAttribute("aria-busy", String(busy));
+        buttonLabel.textContent = busy ? "Procesando" : "Acceder";
+      }
+
+      function showGenericError() {
+        message.textContent = "No se pudo acceder al documento. Verifica la contraseña e inténtalo nuevamente.";
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        message.textContent = "";
+
+        if (!input.value || !globalThis.crypto?.subtle) {
+          input.value = "";
+          showGenericError();
+          input.focus();
+          return;
+        }
+
+        const passwordBytes = new TextEncoder().encode(input.value);
+        input.value = "";
+        setBusy(true);
+
+        try {
+          const html = await decryptProposal(passwordBytes);
+          document.open();
+          document.write(html);
+          document.close();
+        } catch {
+          passwordBytes.fill(0);
+          setBusy(false);
+          showGenericError();
+          input.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

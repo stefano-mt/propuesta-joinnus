@@ -1,0 +1,21 @@
+# Never publish proposal sources or credentials
+.env
+.env.*
+*.bak
+*.backup
+*.old
+*.orig
+*.source.*
+*.tmp
+*~
+credentials/
+passwords/
+private/
+source/
+sources/
+work/
+proposal-original.html
+proposal-source.html
+index-backup.html
+old-index.html
+backup.html
